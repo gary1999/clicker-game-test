@@ -1,32 +1,18 @@
+//npm run deploy
 import { useEffect, useState } from "react";
+import { easyMonsterList } from "./resources/easyMonsterList";
+import { mediumMonsterList } from "./resources/mediumMonsterList";
+import { hardMonsterList } from "./resources/hardMonsterList";
 
 import "./App.css";
 
 function App() {
-	const easyMonsterList = [
-		{ name: "Slime", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Wolf", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Spider", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Goblin", health: 10, minDamage: 1, maxDamage: 1 },
-	];
-
-	const mediumMonsterList = [
-		{ name: "Slime", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Wolf", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Spider", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Goblin", health: 10, minDamage: 1, maxDamage: 1 },
-	];
-
-	const hardMonsterList = [
-		{ name: "Dragon", health: 10, minDamage: 1, maxDamage: 1 },
-		{ name: "Kraken", health: 10, minDamage: 1, maxDamage: 1 },
-	];
-
 	const [player, setPlayer] = useState({
 		name: "Hero",
 		health: 10,
-		minDamage: 3,
+		minDamage: 1,
 		maxDamage: 3,
+		gold: 0,
 	});
 
 	const [monster, setMonster] = useState({});
@@ -47,7 +33,7 @@ function App() {
 			Math.random() * (player.maxDamage - player.minDamage + 1) +
 				player.minDamage
 		);
-		// setPlayerDamage((playerDamage) => damage);
+		setPlayerDamage((playerDamage) => damage);
 		return damage;
 	};
 
@@ -66,6 +52,7 @@ function App() {
 			attackButton.disabled = true;
 			var encounterButton = document.getElementById("encounterButton");
 			encounterButton.disabled = false;
+			setPlayerDamage((playerDamage) => 0);
 		} else if (monster.health > 0) {
 			var attackButton = document.getElementById("attackButton");
 			attackButton.disabled = false;
@@ -85,6 +72,7 @@ function App() {
 					<div>
 						Damage: {player.minDamage} - {player.maxDamage}
 					</div>
+					<div>Gold: {player.gold}</div>
 				</div>
 				<div id="monsterUI">
 					<div>{monster.name}</div>
